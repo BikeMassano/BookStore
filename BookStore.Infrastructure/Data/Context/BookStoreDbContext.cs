@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Infrastructure.Data.Context
 {
-    class BookStoreDbContext : DbContext
+    public class BookStoreDbContext : DbContext
     {
         public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
             : base(options)
         {
-            //if (Database.EnsureCreated()) Database.Migrate(); // Если база данных не существует - создает миграцию  
+            if (Database.EnsureCreated()) Database.Migrate(); // Если база данных не существует - создает миграцию  
         }
 
         public DbSet<AuthorEntity> Authors { get; set; }
