@@ -1,6 +1,4 @@
-﻿using BookStore.Core.Common;
-
-namespace BookStore.Core.Entities
+﻿namespace BookStore.Core.Entities
 {
     public class PublisherEntity : BaseEntity
     {
