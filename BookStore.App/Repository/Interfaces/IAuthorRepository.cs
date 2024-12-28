@@ -2,7 +2,7 @@
 
 namespace BookStore.App.Repository.Interfaces
 {
-    public interface IAuthorRepository : IBaseRepository
+    public interface IAuthorRepository : IRepositoryBase
     {
         public Task<ICollection<AuthorEntity>?> GetAsync();
         public Task<ICollection<AuthorEntity>?> GetByPageAsync(int page, int pageSize);

@@ -1,6 +1,6 @@
 ﻿namespace BookStore.App.Repository.Interfaces
 {
-    public interface IBaseRepository
+    public interface IRepositoryBase
     {
         public Task SoftDeleteAsync(Guid id);
         public Task RecoverAsync(Guid id);
