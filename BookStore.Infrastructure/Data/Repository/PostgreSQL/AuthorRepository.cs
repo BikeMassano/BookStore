@@ -2,7 +2,6 @@
 using BookStore.Core.Entities;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
 {
