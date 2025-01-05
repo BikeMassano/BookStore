@@ -1,4 +1,3 @@
-using BookStore.Core.Envelope;
 using BookStore.Infrastructure;
 using BookStore.Services;
 
@@ -13,7 +12,6 @@ if(!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/home/error");
 }
 
-app.MapGet("/", () => Envelope.EnvelopeMessage());
-//app.UseWelcomePage("/");
+app.UseWelcomePage("/");
 
 app.Run();
