@@ -34,12 +34,11 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                 .ToListAsync();
         }
 
-        public async Task<ICollection<UserEntity>?> GetByEmailAsync(string email)
+        public async Task<UserEntity?> GetByEmailAsync(string email)
         {
             return await _dbContext.Users
             .AsNoTracking()
-                .Where(a => a.Email == email)
-                .ToListAsync();
+            .FirstOrDefaultAsync(a => a.Email == email);
         }
 
         public async Task<UserEntity?> GetByNameAsync(string userName)
@@ -58,12 +57,11 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                 .ToListAsync();
         }
 
-        public async Task<ICollection<UserEntity>?> GetByPhoneAsync(string phoneNumber)
+        public async Task<UserEntity?> GetByPhoneAsync(string phoneNumber)
         {
             return await _dbContext.Users
             .AsNoTracking()
-                .Where(a => a.PhoneNumber == phoneNumber)
-                .ToListAsync();
+            .FirstOrDefaultAsync(a => a.PhoneNumber == phoneNumber);
         }
 
         public async Task RecoverAsync(Guid id)

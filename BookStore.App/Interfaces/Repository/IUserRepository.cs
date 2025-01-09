@@ -7,8 +7,8 @@ namespace BookStore.App.Interfaces.Repository
         public Task<ICollection<UserEntity>?> GetAsync();
         public Task<ICollection<UserEntity>?> GetByPageAsync(int page, int pageSize);
         public Task<UserEntity?> GetByNameAsync(string userName);
-        public Task<ICollection<UserEntity>?> GetByEmailAsync(string email);
-        public Task<ICollection<UserEntity>?> GetByPhoneAsync(string phoneNumber);
+        public Task<UserEntity?> GetByEmailAsync(string email);
+        public Task<UserEntity?> GetByPhoneAsync(string phoneNumber);
         public Task AddAsync(UserEntity userEntity);
         public Task UpdateAsync(UserEntity userEntity);
     }
