@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Infrastructure.Data.Repository.PostgreSQL;
-using BookStore.App.Repository.Interfaces;
+using BookStore.Infrastructure.Services;
+using BookStore.App.Interfaces.Repository;
+using BookStore.App.Interfaces.Services;
 
 namespace BookStore.Infrastructure
 {
@@ -23,9 +25,12 @@ namespace BookStore.Infrastructure
             builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+
+            builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BookStore.Infrastructure.Data.Context
         public DbSet<AuthorEntity> Authors { get; set; }
         public DbSet<BookEntity> Books { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }
-        public DbSet<ClientEntity> Clients { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<PublisherEntity> Publishers { get; set; }
 
@@ -24,7 +24,7 @@ namespace BookStore.Infrastructure.Data.Context
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new ClientConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
 

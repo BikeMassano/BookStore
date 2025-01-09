@@ -1,4 +1,4 @@
-﻿namespace BookStore.App.Repository.Interfaces
+﻿namespace BookStore.App.Interfaces.Repository
 {
     public interface IRepositoryBase
     {

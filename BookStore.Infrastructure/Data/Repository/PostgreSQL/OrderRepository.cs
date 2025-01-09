@@ -1,4 +1,4 @@
-﻿using BookStore.App.Repository.Interfaces;
+﻿using BookStore.App.Interfaces.Repository;
 using BookStore.Core.Entities;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +14,8 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(Guid id, Guid bookId, Guid clientId, DateTime orderDate)
+        public async Task AddAsync(OrderEntity orderEntity)
         {
-            var orderEntity = new OrderEntity
-            {
-                Id = id,
-                BookId = bookId,
-                ClientId = clientId,
-                Created = orderDate
-            };
-
             await _dbContext.AddAsync(orderEntity);
             await _dbContext.SaveChangesAsync();
         }
@@ -42,12 +34,11 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                 .ToListAsync();
         }
 
-        public async Task<ICollection<OrderEntity>?> GetByIdAsync(Guid orderId)
+        public async Task<OrderEntity?> GetByIdAsync(Guid orderId)
         {
             return await _dbContext.Orders
             .AsNoTracking()
-                .Where(a => a.Id == orderId)
-                .ToListAsync();
+            .FirstOrDefaultAsync(a => a.Id == orderId);
         }
 
         public async Task<ICollection<OrderEntity>?> GetByPageAsync(int page, int pageSize)
@@ -75,14 +66,14 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                     .SetProperty(c => c.IsDeleted, true));
         }
 
-        public async Task UpdateAsync(Guid id, Guid bookId, Guid clientId, DateTime orderDate)
+        public async Task UpdateAsync(OrderEntity orderEntity)
         {
             await _dbContext.Orders
-                .Where(a => a.Id == id)
+                .Where(a => a.Id == orderEntity.Id)
                 .ExecuteUpdateAsync(s => s
-                .SetProperty(c => c.BookId, bookId)
-                .SetProperty(c => c.ClientId, clientId)
-                .SetProperty(c => c.Created, orderDate));
+                .SetProperty(c => c.BookId, orderEntity.BookId)
+                .SetProperty(c => c.UserId, orderEntity.UserId)
+                .SetProperty(c => c.Created, orderEntity.Created));
         }
     }
 }

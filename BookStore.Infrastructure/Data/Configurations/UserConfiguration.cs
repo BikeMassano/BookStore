@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookStore.Infrastructure.Data.Configurations
 {
-    class ClientConfiguration : IEntityTypeConfiguration<ClientEntity>
+    public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
-        public void Configure(EntityTypeBuilder<ClientEntity> builder)
+        public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
             builder.HasKey(a => a.Id);
 
             builder.HasMany(a => a.Orders)
-                .WithOne(a => a.Client);
+                .WithOne(a => a.User);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using BookStore.App.Repository.Interfaces;
+﻿using BookStore.App.Interfaces.Repository;
 using BookStore.Core.Entities;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -38,26 +38,19 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                 .ToListAsync();
         }
 
-        public async Task AddAsync(Guid id, string name, DateOnly birthDate)
+        public async Task AddAsync(AuthorEntity authorEntity)
         {
-            var authorEntity = new AuthorEntity
-            {
-                Id = id,
-                Name = name,
-                BirthDate = birthDate
-            };
-
             await _dbContext.AddAsync(authorEntity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Guid id, string name, DateOnly birthDate)
+        public async Task UpdateAsync(AuthorEntity authorEntity)
         {
             await _dbContext.Authors
-                .Where(a => a.Id == id)
+                .Where(a => a.Id == authorEntity.Id)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(c => c.Name, name)
-                    .SetProperty(c => c.BirthDate, birthDate));
+                    .SetProperty(c => c.Name, authorEntity.Name)
+                    .SetProperty(c => c.BirthDate, authorEntity.BirthDate));
         }
 
         public async Task SoftDeleteAsync(Guid id)

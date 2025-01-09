@@ -13,7 +13,7 @@ namespace BookStore.Infrastructure.Data.Configurations
             builder.HasOne(a => a.Book)
                 .WithMany(a => a.Orders);
 
-            builder.HasOne(a => a.Client)
+            builder.HasOne(a => a.User)
                 .WithMany(a => a.Orders);
         }
     }

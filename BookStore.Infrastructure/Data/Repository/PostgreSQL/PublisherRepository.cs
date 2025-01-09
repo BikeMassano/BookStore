@@ -1,4 +1,4 @@
-﻿using BookStore.App.Repository.Interfaces;
+﻿using BookStore.App.Interfaces.Repository;
 using BookStore.Core.Entities;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +14,8 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(Guid id, string name)
+        public async Task AddAsync(PublisherEntity publisherEntity)
         {
-            var publisherEntity = new PublisherEntity
-            {
-                Id = id,
-                Name = name
-            };
-
             await _dbContext.AddAsync(publisherEntity);
             await _dbContext.SaveChangesAsync();
         }
@@ -73,12 +67,12 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                     .SetProperty(c => c.IsDeleted, true));
         }
 
-        public async Task UpdateAsync(Guid id, string name)
+        public async Task UpdateAsync(PublisherEntity publisherEntity)
         {
             await _dbContext.Publishers
-                .Where(a => a.Id == id)
+                .Where(a => a.Id == publisherEntity.Id)
                 .ExecuteUpdateAsync(s => s
-                .SetProperty(c => c.Name, name));
+                .SetProperty(c => c.Name, publisherEntity.Name));
         }
     }
 }

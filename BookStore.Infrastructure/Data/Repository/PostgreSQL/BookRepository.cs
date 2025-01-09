@@ -1,4 +1,4 @@
-﻿using BookStore.App.Repository.Interfaces;
+﻿using BookStore.App.Interfaces.Repository;
 using BookStore.Core.Entities;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -46,34 +46,23 @@ namespace BookStore.Infrastructure.Data.Repository.PostgreSQL
                 .ToListAsync();
         }
 
-        public async Task AddAsync(Guid id, string title, DateOnly publishDate, decimal price, Guid authorId, Guid categoryId, Guid publisherId)
+        public async Task AddAsync(BookEntity bookEntity)
         {
-            var book = new BookEntity
-            {
-                Id = id,
-                Title = title,
-                PublishDate = publishDate,
-                Price = price,
-                AuthorId = authorId,
-                CategoryId = categoryId,
-                PublisherId = publisherId
-            };
-
-            await _dbContext.AddAsync(book);
+            await _dbContext.AddAsync(bookEntity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Guid id, string title, DateOnly publishDate, decimal price, Guid authorId, Guid categoryId, Guid publisherId)
+        public async Task UpdateAsync(BookEntity bookEntity)
         {
             await _dbContext.Books
-                .Where(a => a.Id == id)
+                .Where(a => a.Id == bookEntity.Id)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(c => c.Title, title)
-                    .SetProperty(c => c.PublishDate, publishDate)
-                    .SetProperty(c => c.Price, price)
-                    .SetProperty(c => c.AuthorId, authorId)
-                    .SetProperty(c => c.CategoryId, categoryId)
-                    .SetProperty(c => c.PublisherId, publisherId));
+                    .SetProperty(c => c.Title, bookEntity.Title)
+                    .SetProperty(c => c.PublishDate, bookEntity.PublishDate)
+                    .SetProperty(c => c.Price, bookEntity.Price)
+                    .SetProperty(c => c.AuthorId, bookEntity.AuthorId)
+                    .SetProperty(c => c.CategoryId, bookEntity.CategoryId)
+                    .SetProperty(c => c.PublisherId, bookEntity.PublisherId));
         }
 
         public async Task SoftDeleteAsync(Guid id)
