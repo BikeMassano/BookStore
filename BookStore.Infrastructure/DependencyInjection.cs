@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using BookStore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Infrastructure.Data.Repository.PostgreSQL;
-using BookStore.Infrastructure.Services;
 using BookStore.App.Interfaces.Repository;
 using BookStore.App.Interfaces.Services;
 

@@ -1,8 +1,12 @@
-﻿namespace BookStore.Infrastructure
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookStore.Infrastructure
 {
     public class JwtOptions
     {
+        [Required]
         public TimeSpan Expires { get; set; }
-        public string SecretKey { get; set; } = null!;
+        [Required]
+        public string SecretKey { get; set; } = string.Empty;
     }
 }

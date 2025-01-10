@@ -15,12 +15,9 @@ namespace BookStore.Infrastructure
         {
             var claims = new[]
             {
-                new Claim("userId", userEntity.Id.ToString()),
+                new Claim("sub", userEntity.Id.ToString()),
                 new Claim("userRole", userEntity.Role.ToString()),
-                new Claim("userName", userEntity.UserName),
-                new Claim("userMail", userEntity.Email),
-                new Claim("userPhone", userEntity.PhoneNumber),
-                new Claim("userAddress", userEntity.Address)
+                new Claim("name", userEntity.UserName),
             };
 
             var jwtToken = new JwtSecurityToken(

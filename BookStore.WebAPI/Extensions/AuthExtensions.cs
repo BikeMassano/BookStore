@@ -7,14 +7,14 @@ namespace BookStore.WebAPI.Extensions
 {
     public static class AuthExtensions
     {
-        public static IServiceCollection AddAuth(this IServiceCollection serviceCollection,
+        public static void AddAuth(this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
             var authSettings = configuration.GetSection(nameof(JwtOptions))
                 .Get<JwtOptions>();
 
             serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(o =>
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
                 {
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -22,7 +22,8 @@ namespace BookStore.WebAPI.Extensions
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(authSettings!.SecretKey))
                     };
 
                     o.Events = new JwtBearerEvents
@@ -35,7 +36,7 @@ namespace BookStore.WebAPI.Extensions
                         }
                     };
                 });
-            return serviceCollection;
+            serviceCollection.AddAuthorization();
         }
     }
 }
